@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rupali... Will You Be My Valentine? 💖</title>
+  <style>
+    :root {
+      --pink: #ff4081;
+      --dark-pink: #e91e63;
+      --gray: #757575;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      min-height: 100dvh;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #ffe4e9);
+      color: #333;
+      overflow: hidden; /* Changed to hidden for both x and y to prevent scroll issues */
+    }
+
+    .container {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 9vw, 3.4rem);
+      color: var(--dark-pink);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .heart { font-size: 1.3em; }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    button {
+      font-size: clamp(1.2rem, 5vw, 1.6rem);
+      font-weight: bold;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      touch-action: manipulation;
+    }
+
+    #yes {
+      background: var(--pink);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255,64,129,0.35);
+    }
+
+    #yes:hover, #yes:active {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(255,64,129,0.5);
+    }
+
+    #no {
+      background: var(--gray);
+      color: white;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 10;
+    }
+
+    #no.scared {
+      position: absolute;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .confession {
+      display: none;
+      animation: popIn 1.2s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { opacity:0; transform: scale(0.6) translateY(30px); }
+      100% { opacity:1; transform: scale(1) translateY(0); }
+    }
+
+    .confession h2 {
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      color: var(--dark-pink);
+      margin-bottom: 1.5rem;
+    }
+
+    .confession p {
+      font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+      line-height: 1.6;
+      max-width: 65ch;
+      margin: 1rem auto;
+    }
+
+    .big-heart {
+      font-size: 6rem;
+      margin: 2rem 0;
+      animation: beat 1.4s infinite;
+    }
+
+    @keyframes beat {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.15); }
+    }
+
+    .float-heart {
+      position: fixed; /* Changed to fixed for better viewport positioning */
+      font-size: 2.5rem;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { bottom: -10%; opacity: 0; transform: rotate(0deg); } /* Start just below viewport */
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { bottom: 110%; opacity: 0; transform: rotate(360deg); } /* End above viewport */
+    }
+
+    @media (max-width: 600px) {
+      .buttons { flex-direction: column; gap: 4rem; }
+      #no { width: 80%; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="container">
+  <h1>Rupali, will you be my Valentine?<span class="heart">  ❤️</span></h1>
+
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 😔</button>
+  </div>
+
+  <div class="confession" id="love">
+    <h2>Yayyyyyy!!! 🥰💖✨</h2>
+    <p>Meri pyaari bubu... I am officially proposing to you now. The last one year with you has been the best year of my life.</p>
+    <p>I've changed a lot, transformed a lot... Just because of you. You are my life. You are my love. You are my world... And beyond.</p>
+    <p>You are my valentine. Always and forever. 💞</p>
+    <p>I love you my baby , today .. tomorrow... and till eternity</p>    
+    <p class="big-heart">❤️❤️❤️</p>
+  </div>
+</div>
+
+<audio id="loveSong" src="Rupali_Khat.mp3" preload="auto"></audio>
+
+<script>
+  const noBtn = document.getElementById('no');
+  const yesBtn = document.getElementById('yes');
+  const loveDiv = document.getElementById('love');
+  const container = document.getElementById('container');
+  const loveSong = document.getElementById('loveSong');
+
+  let attempts = 0;
+  const maxAttempts = 7;
+
+  function moveNoButton() {
+    if (attempts >= maxAttempts) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    // Keep inside container with safe margin
+    const maxX = containerRect.width - btnWidth - 40;
+    const maxY = containerRect.height - btnHeight - 100;
+
+    const x = Math.random() * maxX + 20;
+    const y = Math.random() * maxY + 40;
+
+    noBtn.classList.add('scared');
+    noBtn.style.left = x + 'px';
+    noBtn.style.top  = y + 'px';
+
+    attempts++;
+
+    if (attempts >= maxAttempts) {
+      setTimeout(() => {
+        noBtn.textContent = "Okay okay... 😭";
+        noBtn.style.background = "#ff5252";
+        noBtn.style.transform = "scale(0.92)";
+      }, 400);
+    }
+  }
+
+  // Desktop hover + mobile touch/long-press simulation
+  noBtn.addEventListener('mouseover', moveNoButton);
+  noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  // Also move on click attempt (extra safety)
+  noBtn.addEventListener('click', (e) => {
+    if (attempts < maxAttempts) {
+      e.preventDefault();
+      moveNoButton();
+    }
+  });
+
+  yesBtn.addEventListener('click', () => {
+    container.innerHTML = '';
+    container.appendChild(loveDiv);
+    loveDiv.style.display = 'block';
+
+    // Play the song
+    loveSong.play().catch(error => {
+      console.error('Audio playback failed:', error);
+    });
+
+    // Floating hearts explosion
+    for (let i = 0; i < 18; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.className = 'float-heart';
+        heart.textContent = ['💗','💖','💕','❤️','💞'][Math.floor(Math.random()*5)];
+        heart.style.left = Math.random() * 100 + '%'; // Changed to % for consistency
+        heart.style.bottom = '-10%'; // Initial position for animation
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        heart.style.animationDuration = (6 + Math.random() * 5) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 12000);
+      }, i * 180);
+    }
+  });
+</script>
+
+</body>
+</html>
