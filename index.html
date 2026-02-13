@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rupali... Will You Be My Valentine? 💖</title>
+
+  <script src="message.js" defer></script>
+
   <style>
     :root {
       --pink: #ff4081;
@@ -18,7 +21,7 @@
       font-family: system-ui, sans-serif;
       background: linear-gradient(135deg, #fff0f5, #ffe4e9);
       color: #333;
-      overflow: hidden; /* Changed to hidden for both x and y to prevent scroll issues */
+      overflow: hidden;
     }
 
     .container {
@@ -118,7 +121,7 @@
     }
 
     .float-heart {
-      position: fixed; /* Changed to fixed for better viewport positioning */
+      position: fixed;
       font-size: 2.5rem;
       pointer-events: none;
       opacity: 0.6;
@@ -126,10 +129,10 @@
     }
 
     @keyframes floatUp {
-      0%   { bottom: -10%; opacity: 0; transform: rotate(0deg); } /* Start just below viewport */
+      0%   { bottom: -10%; opacity: 0; transform: rotate(0deg); }
       10%  { opacity: 0.8; }
       90%  { opacity: 0.8; }
-      100% { bottom: 110%; opacity: 0; transform: rotate(360deg); } /* End above viewport */
+      100% { bottom: 110%; opacity: 0; transform: rotate(360deg); }
     }
 
     @media (max-width: 600px) {
@@ -147,15 +150,6 @@
     <button id="yes">Yes 💕</button>
     <button id="no">No 😔</button>
   </div>
-
-  <div class="confession" id="love">
-    <h2>Yayyyyyy!!! 🥰💖✨</h2>
-    <p>Meri pyaari bubu... I am officially proposing to you now. The last one year with you has been the best year of my life.</p>
-    <p>I've changed a lot, transformed a lot... Just because of you. You are my life. You are my love. You are my world... And beyond.</p>
-    <p>You are my valentine. Always and forever. 💞</p>
-    <p>I love you my baby , today .. tomorrow... and till eternity</p>    
-    <p class="big-heart">❤️❤️❤️</p>
-  </div>
 </div>
 
 <audio id="loveSong" src="Rupali_Khat.mp3" preload="auto"></audio>
@@ -163,7 +157,6 @@
 <script>
   const noBtn = document.getElementById('no');
   const yesBtn = document.getElementById('yes');
-  const loveDiv = document.getElementById('love');
   const container = document.getElementById('container');
   const loveSong = document.getElementById('loveSong');
 
@@ -177,7 +170,6 @@
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Keep inside container with safe margin
     const maxX = containerRect.width - btnWidth - 40;
     const maxY = containerRect.height - btnHeight - 100;
 
@@ -185,8 +177,8 @@
     const y = Math.random() * maxY + 40;
 
     noBtn.classList.add('scared');
-    noBtn.style.left = x + 'px';
-    noBtn.style.top  = y + 'px';
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top  = `${y}px`;
 
     attempts++;
 
@@ -199,14 +191,12 @@
     }
   }
 
-  // Desktop hover + mobile touch/long-press simulation
   noBtn.addEventListener('mouseover', moveNoButton);
   noBtn.addEventListener('touchstart', (e) => {
     e.preventDefault();
     moveNoButton();
   });
 
-  // Also move on click attempt (extra safety)
   noBtn.addEventListener('click', (e) => {
     if (attempts < maxAttempts) {
       e.preventDefault();
@@ -215,23 +205,31 @@
   });
 
   yesBtn.addEventListener('click', () => {
+    if (typeof confessionHTML === 'undefined') {
+      container.innerHTML = '<h2 style="color:#e91e63">Something went wrong... but I still love you! ❤️</h2>';
+      return;
+    }
+
     container.innerHTML = '';
+
+    const loveDiv = document.createElement('div');
+    loveDiv.className = 'confession';
+    loveDiv.id = 'love';
+    loveDiv.innerHTML = confessionHTML;
     container.appendChild(loveDiv);
     loveDiv.style.display = 'block';
 
-    // Play the song
     loveSong.play().catch(error => {
       console.error('Audio playback failed:', error);
     });
 
-    // Floating hearts explosion
     for (let i = 0; i < 18; i++) {
       setTimeout(() => {
         const heart = document.createElement('div');
         heart.className = 'float-heart';
         heart.textContent = ['💗','💖','💕','❤️','💞'][Math.floor(Math.random()*5)];
-        heart.style.left = Math.random() * 100 + '%'; // Changed to % for consistency
-        heart.style.bottom = '-10%'; // Initial position for animation
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.bottom = '-10%';
         heart.style.animationDelay = Math.random() * 2 + 's';
         heart.style.animationDuration = (6 + Math.random() * 5) + 's';
         document.body.appendChild(heart);
