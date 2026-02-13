@@ -1,7 +1,7 @@
 
 
 const confessionHTML = `
-  <h2>Happy Valentine’s Day, my jaan ❤️</h2>
+  <h2>Happy Valentine’s Day, My Bubu❤️</h2>
   
   <p>Rupali….</p>
   
@@ -13,19 +13,20 @@ const confessionHTML = `
   
   <p>You mean everything to me…. my life…. my soul…. my world…. my everything.</p>
   
-  <p>I just want to take away all your pain…. I never want anything bad to happen to you…. that’s all I pray for.</p>
+  <p>I just want to take away all your pain…. I never want anything bad to happen to you… my bubu... that’s all I pray for.</p>
   
-  <p>And I’m really sorry…. for anything wrong I ever said or did…. for any hurt I caused…. please forgive me from your heart.</p>
+  <p>And I’m really sorry…. for anything wrong I ever said or did…. for any hurt I caused…. please forgive me from your heart my baby.</p>
   
   <p>It kills me inside when you’re irresponsible with yourself…. when you put yourself down…. when you feel insecure…. it hurts me so much to see that.</p>
   
   <p>You’re perfect…. perfect in every way…. you’re my lifeline…. you’re my bubu.</p>
   
-  <p>I’ll always be right here beside you…. forever…. I’m never leaving.</p>
+  <p>I’ll always be right here beside you…. forever….</p>
   
   <p>I just want you to be happy always…. forever…. I want to see you smile…. laugh with your whole heart…. no holding back…. I want you to feel confident in yourself…. because you really are that amazing.</p>
   
-  <p>I love you…. so much….</p>
+  <p>I love you…. so much… my baby.</p>
   
-  <p class="big-heart">Your Kshitiz ❤️❤️❤️</p>
+  <p class="big-heart">Your Dudu ❤️❤️❤️</p>
 `;
+
